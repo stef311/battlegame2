@@ -19,10 +19,15 @@ def register(request):
         else:
             return HttpResponse("Form not valid")
     else:
-        user_form = UserRegistrationForm()
-        context = {"user_form": user_form}
-        return render(request, "account/register.html", context=context)
+        registration_enabled = settings.REGISTRATION_ENABLED
 
+        if registration_enabled:
+            user_form = UserRegistrationForm()
+            context = {"user_form": user_form}
+            return render(request, "account/register.html", context=context)
+        else:
+            context = {}
+            return render(request, "account/registration_disabled.html", context=context)
 
 def user_login(request):
     if request.method == "POST":

@@ -122,4 +122,4 @@ STATIC_URL = '/static/'
 
 # my configurations
 
-LOGIN_ENABLED = "false"
+REGISTRATION_ENABLED = True
