@@ -19,7 +19,7 @@ def register(request):
             return HttpResponse("Form not valid")
     else:
         user_form = UserRegistrationForm()
-        context = {"user_form:": user_form}
+        context = {"user_form": user_form}
         return render(request, "account/register.html", context=context)
 
 
@@ -33,7 +33,7 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return redirect("users:register")
+                    return redirect("account:register")
                 else:
                     return HttpResponse("user is not active")
             else:
