@@ -1,4 +1,4 @@
-#!/home/stefanos/battlegame2/battlegame_env/bin/python2
+#!/home/stefanos/battlegame2/battlegame_env/bin/python3
 
 # -*- coding: utf-8 -*-
 import re
