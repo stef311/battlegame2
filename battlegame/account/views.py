@@ -42,4 +42,5 @@ def user_login(request):
             return HttpResponse("Not valid form")
     else:
         user_form = UserLoginForm()
-        return render(request, "users/login.html", {"user_form": user_form})
+        context = {"user_form": user_form}
+        return render(request, "account/login.html", context=context)
