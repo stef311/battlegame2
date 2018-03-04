@@ -3,4 +3,8 @@
 {% block content %}
   <h1>Central Building</h1>
   <p>Here are the actions you can do from the central building:</p>
+  <ul id="central_nav">
+    <li id="army"><a href = "{% url 'battle:army' %}">Visit Army</a></li>
+    <li id="market"><a href = "{% url 'battle:market' %}">Visit Market</a></li>
+  </ul>
 {% endblock %}
