@@ -9,3 +9,4 @@ class Profile(models.Model):
     tribe = models.IntegerField(choices=CLASS_CHOICES, default=1)
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
     description = models.TextField()
+
