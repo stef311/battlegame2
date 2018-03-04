@@ -47,7 +47,7 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return redirect("account:register")
+                    return redirect("battle:dashboard")
                 else:
                     return HttpResponse("user is not active")
             else:
@@ -73,7 +73,7 @@ def edit_profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            return redirect("account:register")
+            return redirect("battle:dashboard")
         else:
             return HttpResponse("form not valid")
     else:
