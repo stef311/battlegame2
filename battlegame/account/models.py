@@ -7,6 +7,6 @@ from .appconfig import CLASS_CHOICES
 class Profile(models.Model):
 
     tribe = models.IntegerField(choices=CLASS_CHOICES, default=1)
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     description = models.TextField()
 
