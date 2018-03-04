@@ -1,0 +1,2 @@
+add login_required decorator to logout view
+fix profile edit form field order: first name, last name, email is the correct order for the first three fields.

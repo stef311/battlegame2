@@ -3,7 +3,8 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.conf import settings
 from django.contrib import messages
-from .forms import UserRegistrationForm, UserLoginForm
+from django.contrib.auth.decorators import login_required
+from .forms import UserRegistrationForm, UserLoginForm, ProfileEditForm, UserEditForm
 from .models import Profile
 
 
@@ -57,3 +58,19 @@ def user_login(request):
         user_form = UserLoginForm()
         context = {"user_form": user_form}
         return render(request, "account/login.html", context=context)
+
+@login_required
+def edit_profile(request):
+    if request.method == "POST":
+        user_form = UserEditForm(instance=request.user, data=request.POST)
+        profile_form = ProfileEditForm(instance=request.user.profile, data=request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect("account:register")
+        else:
+            return HttpResponse("form not valid")
+    else:
+        user_form = UserEditForm(instance=request.user)
+        profile_form = ProfileEditForm(instance=request.user.profile)
+        return render(request, "account/edit.html", {"user_form": user_form, "profile_form": profile_form})
