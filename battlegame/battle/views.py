@@ -16,3 +16,7 @@ def info(request):
     context["tribe"] = user_tribe
     return render(request, "battle/info.html", context=context)
 
+@login_required
+def central_building(request):
+    user = request.user
+    return render(request, "battle/central.html", context=context)
