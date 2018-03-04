@@ -19,10 +19,16 @@ def info(request):
 @login_required
 def central_building(request):
     user = request.user # check later if this is required
+    context = {}
     return render(request, "battle/central.html", context=context)
 
 @login_required
 def army_building(request):
     user = request.user # check later if this is required
+    context = {}
     return render(request, "battle/army.html", context=context)
 
+@login_required
+def market_building(request):
+    context = {}
+    return render(request, "battle/market.html", context=context)
