@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.conf import settings
+from django.contrib import messages
 from .forms import UserRegistrationForm, UserLoginForm
+from .models import Profile
 
 
 # Create your views here.
@@ -14,6 +16,11 @@ def register(request):
             new_user = user_form.save(commit=False)
             new_user.set_password(user_form.cleaned_data["password"])
             new_user.save()
+            profile = Profile.objects.create(user=new_user,
+                                             tribe=user_form.cleaned_data["tribe"],
+                                             description=user_form.cleaned_data["description"])
+            profile.save()
+            messages.add_message(request, messages.INFO, "You registered successfully and can now login")
 
             return redirect("account:user_login")
         else:
