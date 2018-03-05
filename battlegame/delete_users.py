@@ -8,11 +8,11 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "battlegame.settings")
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
 
-from .account.models import Profile
+from account.models import Profile
 from django.contrib.auth.models import User
 
 
 for user in User.objects.all():
     if user.username != "admin":
-	profile = Profile.objects.filter(user = user).delete()
-    user.delete()
+        profile = Profile.objects.filter(user = user).delete()
+        user.delete()
