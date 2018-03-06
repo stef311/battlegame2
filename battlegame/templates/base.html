@@ -38,7 +38,7 @@
         <ul>
           {% if user.is_authenticated %}
             <li id="dashboard"><a href = "{% url 'battle:dashboard' %}">Dashboard</a></li>
-            <li id="info"><a href = "{% url 'battle:info' %}">Info</a></li>
+            <li id="overview"><a href = "{% url 'battle:overview' %}">Battle Overview</a></li>
             <li id="logout"><a href = "{% url 'account:user_logout' %}">Logout</a></li>
           {% else %}
             <li id="login"><a href = "{% url 'account:user_login' %}">Login</a></li>

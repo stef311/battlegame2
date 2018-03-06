@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegistrationForm, UserLoginForm, ProfileEditForm, UserEditForm
 from .models import Profile
+from villages.models import Village
 
 
 # Create your views here.
@@ -21,6 +22,8 @@ def register(request):
                                              tribe=user_form.cleaned_data["tribe"],
                                              description=user_form.cleaned_data["description"])
             profile.save()
+            capital = Village.objects.create(user=new_user, name=user_form.cleaned_data["capital_name"])
+            capital.save()
             messages.add_message(request, messages.INFO, "You registered successfully and can now login")
 
             return redirect("account:user_login")
