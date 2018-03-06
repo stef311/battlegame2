@@ -18,3 +18,20 @@ class Village(models.Model):
     silver = models.IntegerField(default=0)
     description = models.CharField(max_length=2000)
 
+class VillageUnits(models.Model):
+    village = models.OneToOneField("Village", on_delete=models.CASCADE)
+    warrior1 = models.IntegerField(default=0)
+    warrior2 = models.IntegerField(default=0)
+    warrior3 = models.IntegerField(default=0)
+
+class VillageBuildings(models.Model):
+    village = models.OneToOneField("Village", on_delete=models.CASCADE)
+    army = models.IntegerField(default=0)
+    market = models.IntegerField(default=0)
+    academy = models.IntegerField(default=0)
+    museum = models.IntegerField(default=0)
+
+class VillageItems(models.Model):
+    flag = models.IntegerField(default=0)
+
+
