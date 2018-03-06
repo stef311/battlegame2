@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     'account',
     'battle',
     'villages',
+    'growth',
+    'servers',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

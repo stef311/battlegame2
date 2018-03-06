@@ -23,5 +23,6 @@ urlpatterns = [
     path('villages/', include('villages.urls')),
     path('belongings/', include('belongings.urls')),
     path('growth/', include('growth.urls')),
+    path('servers/', include('servers.urls')),
 
 ]
