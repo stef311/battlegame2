@@ -11,6 +11,11 @@ class Village(models.Model):
     population = models.IntegerField(default=0)
     culture = models.IntegerField(default=0)
     science = models.IntegerField(default=0)
+    wood = models.IntegerField(default=0)
+    iron = models.IntegerField(default=0)
+    wood_per_turn = models.IntegerField(default=0)
+    iron_per_turn = models.IntegerField(default=0)
+    silver = models.IntegerField(default=0)
     description = models.CharField(max_length=2000)
 
 
