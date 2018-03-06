@@ -11,6 +11,7 @@ class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(label="Password", widget = forms.PasswordInput)
     password2 = forms.CharField(label="Repeat Password", widget = forms.PasswordInput)
     tribe = forms.ChoiceField(choices=CLASS_CHOICES)
+    capital_name = forms.CharField(label="name of capital")
     description = forms.CharField(label="Description", widget=forms.Textarea)
 
     class Meta:
