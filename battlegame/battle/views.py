@@ -16,3 +16,9 @@ def overview(request):
     context["tribe"] = user_tribe
     return render(request, "battle/overview.html", context=context)
 
+@login_required
+def army(request):
+    user = request.user
+    return HttpResponse("army building here. user can see their troops and also train more. can also see heroes")
+
+
