@@ -15,7 +15,7 @@
       <td>{{ gameserver.description }}</td>
       <td>{{ gameserver.players_allowed }}</td>
       <td>TEST</td>
-      <td><a href="{% url "servers:server_join" gameserver.id %}">join</a></td>
+      <td><a href="{% url "servers:server_detail" gameserver.id %}">details</a></td>
     </tr>
   {% endfor %}
   </table>

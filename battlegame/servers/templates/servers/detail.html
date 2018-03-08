@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Server List{% endblock %}
+{% block content %}
+  <p>Players Registered</p>
+  <ul>
+    {% for player in players_registered %}
+      <li>{{ player.name }}</li>
+    {% endfor %}
+  </ul>
+  <p>Join below</p>
+{% endblock %}
