@@ -125,6 +125,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_URL = "/account/login/"
+
 # my configurations
 
 REGISTRATION_ENABLED = True
+
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+STATICFILES_DIRS = [                # For static files not particular to any app.
+os.path.join(PROJECT_DIR, 'static'),
+]
