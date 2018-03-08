@@ -8,4 +8,9 @@
     {% endfor %}
   </ul>
   <p>Join below</p>
+  <form action="." method="post">
+    {{ join_gameserver_form.as_p }}
+    {% csrf_token %}
+    <p><input type="submit" value="Join server"/></p>
+  </form>
 {% endblock %}

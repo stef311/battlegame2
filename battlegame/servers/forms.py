@@ -23,3 +23,6 @@ class CreateGameServerForm(ModelForm):
             raise forms.ValidationError("cannot allow more than 8 players")
 
         return cd["players_allowed"]
+
+class JoinGameServerForm(forms.Form):
+    password = forms.CharField(widget=forms.PasswordInput)
