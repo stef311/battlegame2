@@ -39,3 +39,6 @@ def server_create(request):
             # return HttpResponse("POST method used")
         else:
             return HttpResponse("not valid")
+
+def server_join(request, server_id):
+    return HttpResponse("Join the server here")

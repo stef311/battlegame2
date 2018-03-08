@@ -1,9 +1,9 @@
-from django.conf.urls import url
+from django.urls import path
 from . import views
 
 app_name = "growth"
 
 urlpatterns = [
-    url(r"^(?P<village_id>[0-9]+)/academy/$", views.academy, name="academy"),
-    url(r"^(?P<village_id>[0-9]+)/museum/$", views.museum, name="museum"),
+    path("<int:village_id>/academy/", views.academy, name="academy"),
+    path("<int:village_id>/museum/", views.museum, name="museum"),
 ]
