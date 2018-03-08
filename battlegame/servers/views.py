@@ -56,6 +56,7 @@ def server_detail(request, server_id):
         if join_gameserver_form.is_valid():
             cd = join_gameserver_form.cleaned_data
             if server.password == cd["password"]:
+                server.players.add(request.user)
                 return HttpResponse("password is correct")
             else:
                 return HttpResponse("password not correct")
