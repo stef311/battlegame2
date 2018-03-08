@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Server List{% endblock %}
+{% block content %}
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Players Allowed</th>
+      <th>Players Registered</th>
+    </tr>
+  {% for gameserver in gameservers %}
+    <tr>
+      <td>{{ gameserver.name }}</td>
+      <td>{{ gameserver.description }}</td>
+      <td>{{ gameserver.players_allowed }}</td>
+      <td>TEST</td>
+    </tr>
+  {% endfor %}
+  </table>
+{% endblock %}

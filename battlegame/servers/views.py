@@ -7,7 +7,10 @@ from .models import GameServer
 # Create your views here.
 
 def server_list(request):
-    return HttpResponse("overview of all the servers")
+    gameservers = GameServer.objects.all()
+    context = {}
+    context.update({"gameservers": gameservers})
+    return render(request, "servers/list.html", context=context)
 
 @staff_member_required
 def server_create(request):
@@ -21,7 +24,11 @@ def server_create(request):
         if create_gameserver_form.is_valid():
             cd = create_gameserver_form.cleaned_data
             name = cd["name"]
-            new_gameserver, created = GameServer.objects.get_or_create(name=name)
+            description = cd["description"]
+            password = cd["password"]
+            players_allowed = cd["players_allowed"]
+            new_gameserver, created = GameServer.objects.get_or_create(name=name, description=description,
+                                                                       password=password,players_allowed=players_allowed)
             if created:
                 return HttpResponse("server created")
             else:
