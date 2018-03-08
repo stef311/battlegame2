@@ -18,6 +18,9 @@ def server_create(request):
         return render(request, "servers/create.html", context=context)
     else:
         create_gameserver_form = CreateGameServerForm(request.POST)
+        new_gameserver = create_gameserver_form.save(commit=False)
+        # new_gameserver.set_password(create_gameserver_form.cleaned_data["password"]) #TODO: create something like this that works
+        new_gameserver.save()
         if create_gameserver_form.is_valid():
             return HttpResponse("POST method used")
         else:
