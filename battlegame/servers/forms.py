@@ -16,3 +16,10 @@ class CreateGameServerForm(ModelForm):
             raise forms.ValidationError("passwords do not match")
 
         return cd["password"]
+
+    def clean_players_allowed(self):
+        cd = self.cleaned_data
+        if cd["players_allowed"] > 8:
+            raise forms.ValidationError("cannot allow more than 8 players")
+
+        return cd["players_allowed"]
