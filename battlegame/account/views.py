@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegistrationForm, UserLoginForm, ProfileEditForm, UserEditForm
 from .models import Profile
-from villages.models import Village
+from villages.models import Village # why is it red on pycharm
 
 
 # Create your views here.
