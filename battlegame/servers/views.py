@@ -18,10 +18,17 @@ def server_create(request):
         return render(request, "servers/create.html", context=context)
     else:
         create_gameserver_form = CreateGameServerForm(request.POST)
-        new_gameserver = create_gameserver_form.save(commit=False)
-        # new_gameserver.set_password(create_gameserver_form.cleaned_data["password"]) #TODO: create something like this that works
-        new_gameserver.save()
         if create_gameserver_form.is_valid():
-            return HttpResponse("POST method used")
+            cd = create_gameserver_form.cleaned_data
+            name = cd["name"]
+            new_gameserver, created = GameServer.objects.get_or_create(name=name)
+            if created:
+                return HttpResponse("server created")
+            else:
+                return HttpResponse("server with this name already exists")
+            # new_gameserver = create_gameserver_form.save(commit=False)
+            # # new_gameserver.set_password(create_gameserver_form.cleaned_data["password"]) #TODO: create something like this that works
+            # new_gameserver.save()
+            # return HttpResponse("POST method used")
         else:
             return HttpResponse("not valid")
