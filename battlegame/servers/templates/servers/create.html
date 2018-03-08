@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Create Server{% endblock %}
+{% block content %}
+  <form action="." method="post">
+    {{ create_gameserver_form.as_p }}
+    {% csrf_token %}
+    <p><input type="submit" value="Create server"/></p>
+  </form>
+{% endblock %}
