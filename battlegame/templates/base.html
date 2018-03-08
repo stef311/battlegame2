@@ -45,6 +45,7 @@
             <li id="login"><a href = "{% url 'account:user_login' %}">Login</a></li>
             <li id="register"><a href = "{% url 'account:register' %}">Register</a></li>
           {% endif %}
+          <li id="server_list"><a href="{% url 'servers:server_list' %}">Server List</a></li>
         </ul>
     </div>
     {% block content %}
