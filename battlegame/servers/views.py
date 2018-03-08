@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
 from .forms import CreateGameServerForm
 from .models import GameServer
 
@@ -40,5 +41,10 @@ def server_create(request):
         else:
             return HttpResponse("not valid")
 
-def server_join(request, server_id):
-    return HttpResponse("Join the server here")
+@login_required
+def server_detail(request, server_id):
+    server = GameServer.objects.get(id=server_id)
+    players_registered = server.players.all()
+    context = {}
+    context.update({"players_registered": players_registered})
+    return render(request,"servers/detail.html", context=context)
