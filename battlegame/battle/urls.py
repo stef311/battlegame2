@@ -1,9 +1,9 @@
-from django.conf.urls import url
+from django.urls import path
 from . import views
 
 app_name = "battle"
 
 urlpatterns = [
-    url(r"^dashboard/$", views.dashboard, name="dashboard"),
-    url(r"^overview/$", views.overview, name="overview"),
+    path("dashboard/", views.dashboard, name="dashboard"),
+    path("overview/", views.overview, name="overview"),
 ]

@@ -9,11 +9,13 @@
       <th>Players Registered</th>
     </tr>
   {% for gameserver in gameservers %}
+
     <tr>
       <td>{{ gameserver.name }}</td>
       <td>{{ gameserver.description }}</td>
       <td>{{ gameserver.players_allowed }}</td>
       <td>TEST</td>
+      <td><a href="{% url "servers:server_join" gameserver.id %}">join</a></td>
     </tr>
   {% endfor %}
   </table>
