@@ -28,7 +28,7 @@ def create(request):
         create_form = CreateVillageForm(request.POST)
         if create_form.is_valid():
             cd = create_form.cleaned_data
-            new_village = Village.objects.create(user = request.user, wood=50, iron= 50, name=cd["name"], description=cd["description"])
+            new_village = Village.objects.create(user = request.user, wood=50, iron= 50, name=cd["name"], description=cd["description"], silver=50)
             new_village.save()
             # initial troops to give to village
             if cd["type"] == "1": # add variables like these in settings
