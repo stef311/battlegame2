@@ -15,3 +15,11 @@ def calculate_defence_power(warrior1, warrior2, warrior3):
     defence3 = warrior3 * Unit.objects.get(name="warrior3").defence_power
 
     return defence1 + defence2 + defence3
+
+def calculate_population(warrior1, warrior2, warrior3):
+
+    cost1 = warrior1 * Unit.objects.get(name="warrior1").population
+    cost2 = warrior2 * Unit.objects.get(name="warrior2").population
+    cost3 = warrior3 * Unit.objects.get(name="warrior3").population
+
+    return cost1 + cost2 + cost3

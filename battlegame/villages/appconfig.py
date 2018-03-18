@@ -8,4 +8,5 @@ VILLAGE_TYPE_CHOICES = (
 FIELD_TYPES = (
         ("1", "Wood"),
 	    ("2", "Iron"),
+        ("3", "Neutral")
 )

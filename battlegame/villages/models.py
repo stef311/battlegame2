@@ -3,7 +3,8 @@ from django.utils import timezone
 from django.conf import settings
 from .appconfig import FIELD_TYPES
 from battle.models import Unit
-from battle.utils import calculate_attack_power, calculate_defence_power
+from battle.utils import calculate_attack_power, calculate_defence_power, calculate_population
+from .utils import calculate_resources_per_turn
 
 # Create your models here.
 
@@ -27,15 +28,15 @@ class Village(models.Model):
     date_created = models.DateTimeField(default=timezone.now, blank=True, null=True)
 
 class VillageUnitsManager(models.Manager):
-    def create(self, *args, **kwargs):
+    def create(self, *args, **kwargs): # do the same for update
         obj = self.model(**kwargs)
         overall_attack = calculate_attack_power(obj.warrior1, obj.warrior2, obj.warrior3)
-        print(overall_attack)
         overall_defence = calculate_defence_power(obj.warrior1, obj.warrior2, obj.warrior3)
+        overall_population = calculate_population(obj.warrior1, obj.warrior2, obj.warrior3)
 
         obj.village.attack_power += overall_attack
-
         obj.village.defence_power += overall_defence
+        obj.village.population += overall_population
 
         obj.village.save()
 
@@ -65,7 +66,23 @@ class VillageItems(models.Model):
     flag = models.IntegerField(default=0)
 
 
+class VillageFieldManager(models.Manager):
+    def create(self, *args, **kwargs):
+        obj = self.model(**kwargs)
+
+        wood_per_turn, iron_per_turn = calculate_resources_per_turn(obj.field_type)
+
+        obj.village.wood_per_turn += wood_per_turn
+        obj.village.iron_per_turn += iron_per_turn
+        obj.village.save()
+
+        self._for_write = True
+        obj.save(force_insert=True, using=self.db)
+        return obj
+
 class VillageField(models.Model):
     village = models.ForeignKey(Village, related_name="fields", on_delete=models.CASCADE)
     field_type = models.IntegerField(choices=FIELD_TYPES, default=1)
     level = models.IntegerField(default=1)
+
+    objects = VillageFieldManager()
