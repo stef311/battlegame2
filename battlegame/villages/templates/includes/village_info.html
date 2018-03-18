@@ -1,1 +1,4 @@
 <h2>Villages Info</h2>
+{% for village in user.villages.all %}
+  <p><a href="{% url 'villages:main' village.id %}">{{ village.name }}</a></p>
+{% endfor %}

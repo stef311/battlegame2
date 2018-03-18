@@ -4,7 +4,7 @@ from django.conf import settings
 # Create your models here.
 
 class Village(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="villages")
     server = models.IntegerField(default=0) # suppose 0 is the NULL server. for testing only
     name = models.CharField(max_length=20)
     attack_power = models.IntegerField(default=0)

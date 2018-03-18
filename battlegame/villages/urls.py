@@ -1,8 +1,9 @@
-from django.conf.urls import url
+from django.urls import path
 from . import views
 
 app_name = "villages"
 
 urlpatterns = [
-    url(r"^all/$", views.all, name="register"),
+    path("all/", views.all, name="all"),
+    path("main/<int:village_id>", views.main, name="main")
 ]
