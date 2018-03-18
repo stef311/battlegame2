@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-
+from .appconfig import FIELD_TYPES
 # Create your models here.
 
 class Village(models.Model):
@@ -37,4 +37,7 @@ class VillageBuildings(models.Model):
 class VillageItems(models.Model):
     flag = models.IntegerField(default=0)
 
-
+class VillageField(models.Model):
+    village = models.ForeignKey(Village, related_name="fields", on_delete=models.CASCADE)
+    field_type = models.IntegerField(choices=FIELD_TYPES, default=1)
+    level = models.IntegerField(default=0)

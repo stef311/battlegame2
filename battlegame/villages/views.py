@@ -30,3 +30,5 @@ def create(request):
             new_village.save()
             # initial troops to give to village
             return redirect("battle:overview")
+        else:
+            return HttpResponse("form not valid. please try with another name")
