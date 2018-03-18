@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from .forms import CreateVillageForm
 
 # Create your views here.
 
@@ -15,4 +16,8 @@ def main(request, village_id):
 @login_required
 def create(request):
     context = {}
+    if request.method == "GET":
+        create_form = CreateVillageForm()
+        context.update({"create_form":create_form})
+
     return render(request, "villages/create.html", context=context)
