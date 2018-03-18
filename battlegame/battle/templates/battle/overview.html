@@ -1,5 +1,13 @@
 {% extends "base.html" %}
 {% block title %}Player Info{% endblock %}
 {% block content %}
-  <p>tribe: {{ tribe }}</p>
+
+  {% include "villages/includes/villages_info.html" %}
+
+  {% include "villages/includes/villages_overall_info.html" %}
+
+  {% include "notifications/includes/notifications_info.html" %}
+
+  {% include "account/includes/account_info.html" %}
+
 {% endblock %}

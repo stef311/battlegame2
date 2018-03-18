@@ -38,17 +38,12 @@
     <div id="sidebar">
         <ul>
           {% if user.is_authenticated %}
-            <li id="dashboard"><a href = "{% url 'battle:dashboard' %}">Dashboard</a></li>
-            <li id="overview"><a href = "{% url 'battle:overview' %}">Battle Overview</a></li>
-            <li id="messages"><a href = "{% url 'notifications:message_list' %}">Messages</a></li>
-            <li id="notifications"><a href = "{% url 'notifications:notification_list' %}">Notifications</a></li>
-            <li id="logout"><a href = "{% url 'account:user_logout' %}">Logout</a></li>
+            {% include "includes/user_authenticated_menu.html" %}
           {% else %}
-            <li id="login"><a href = "{% url 'account:user_login' %}">Login</a></li>
-            <li id="register"><a href = "{% url 'account:register' %}">Register</a></li>
+            {% include "includes/user_unauthenticated_menu.html" %}
           {% endif %}
-          <li id="server_list"><a href="{% url 'servers:server_list' %}">Server List</a></li>
-        </ul>
+          {% include "includes/user_common_menu.html" %}
+          </ul>
     </div>
     {% block content %}
     {% endblock %}

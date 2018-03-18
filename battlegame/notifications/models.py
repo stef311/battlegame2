@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
-from battlegame.servers.models import GameServer
+from servers.models import GameServer
 from .appconfig import NOTIFICATION_TYPES
 
 # Create your models here.

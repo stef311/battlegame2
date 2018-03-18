@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from .appconfig import TASK_TYPES
-from battlegame.battle.models import Unit
+from battle.models import Unit
 
 # Create your models here.
 
