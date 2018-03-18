@@ -31,11 +31,11 @@ def create(request):
             new_village = Village.objects.create(user = request.user, name=cd["name"], description=cd["description"])
             new_village.save()
             # initial troops to give to village
-            if cd["type"] == 1: # add variables like these in settings
+            if cd["type"] == "1": # add variables like these in settings
                 offensive_units = 4
                 defensive_units = 2
                 neutral_units = 1
-            elif cd["type"] == 2:
+            elif cd["type"] == "2":
                 offensive_units = 2
                 defensive_units = 4
                 neutral_units = 1
@@ -43,11 +43,12 @@ def create(request):
                 offensive_units = 2
                 defensive_units = 2
                 neutral_units = 3
+            print(cd["type"])
 
             new_village_units = VillageUnits.objects.create(village = new_village, warrior1 = offensive_units,
                                                     warrior2=defensive_units, warrior3=neutral_units)
 
-            new_village.attack_power += calculate_attack_power(offensive_units, defensive_units, neutral_units)
+            # new_village.attack_power += calculate_attack_power(offensive_units, defensive_units, neutral_units)
 
             new_village_items = VillageItems.objects.create(village = new_village, flag = 1)
 

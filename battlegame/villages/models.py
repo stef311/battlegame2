@@ -2,6 +2,9 @@ from django.db import models
 from django.utils import timezone
 from django.conf import settings
 from .appconfig import FIELD_TYPES
+from battle.models import Unit
+from battle.utils import calculate_attack_power, calculate_defence_power
+
 # Create your models here.
 
 class Village(models.Model):
@@ -23,11 +26,31 @@ class Village(models.Model):
     description = models.CharField(max_length=2000)
     date_created = models.DateTimeField(default=timezone.now, blank=True, null=True)
 
+class VillageUnitsManager(models.Manager):
+    def create(self, *args, **kwargs):
+        obj = self.model(**kwargs)
+        overall_attack = calculate_attack_power(obj.warrior1, obj.warrior2, obj.warrior3)
+        print(overall_attack)
+        overall_defence = calculate_defence_power(obj.warrior1, obj.warrior2, obj.warrior3)
+
+        obj.village.attack_power += overall_attack
+
+        obj.village.defence_power += overall_defence
+
+        obj.village.save()
+
+        self._for_write = True
+        obj.save(force_insert=True, using=self.db)
+        return obj
+
 class VillageUnits(models.Model):
     village = models.OneToOneField("Village", on_delete=models.CASCADE)
     warrior1 = models.IntegerField(default=0) #offensive
     warrior2 = models.IntegerField(default=0) #defensive
     warrior3 = models.IntegerField(default=0) #neutral
+
+    objects = VillageUnitsManager()
+
 
 class VillageBuildings(models.Model):
     village = models.OneToOneField("Village", on_delete=models.CASCADE)
@@ -36,9 +59,11 @@ class VillageBuildings(models.Model):
     academy = models.IntegerField(default=1)
     museum = models.IntegerField(default=1)
 
+
 class VillageItems(models.Model):
     village = models.OneToOneField("Village", on_delete=models.CASCADE)
     flag = models.IntegerField(default=0)
+
 
 class VillageField(models.Model):
     village = models.ForeignKey(Village, related_name="fields", on_delete=models.CASCADE)
