@@ -48,19 +48,20 @@ def create(request):
                                                     warrior2=defensive_units, warrior3=neutral_units)
 
             new_village.attack_power += calculate_attack_power(offensive_units, defensive_units, neutral_units)
-            new_village.save()
-            
+
             new_village_items = VillageItems.objects.create(village = new_village, flag = 1)
 
             new_village_buildings = VillageBuildings.objects.create(village = new_village)
 
             for i in range(settings.WOOD_FIELDS_PER_VILLAGE):
                 VillageField.objects.create(village=new_village, field_type=1)
-
+                new_village.wood_per_turn += 10 # each field produces 10 per turn
             for i in range(settings.IRON_FIELDS_PER_VILLAGE):
                 VillageField.objects.create(village=new_village, field_type=2)
+                new_village.iron_per_turn += 10
 
             # Create an additional empty village field
+            new_village.save()
 
             VillageField.objects.create(village=new_village, field_type=0) # 0 means neither wood nor iron
 
