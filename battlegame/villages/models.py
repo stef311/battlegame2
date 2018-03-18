@@ -23,9 +23,9 @@ class Village(models.Model):
 
 class VillageUnits(models.Model):
     village = models.OneToOneField("Village", on_delete=models.CASCADE)
-    warrior1 = models.IntegerField(default=0)
-    warrior2 = models.IntegerField(default=0)
-    warrior3 = models.IntegerField(default=0)
+    warrior1 = models.IntegerField(default=0) #offensive
+    warrior2 = models.IntegerField(default=0) #defensive
+    warrior3 = models.IntegerField(default=0) #neutral
 
 class VillageBuildings(models.Model):
     village = models.OneToOneField("Village", on_delete=models.CASCADE)
