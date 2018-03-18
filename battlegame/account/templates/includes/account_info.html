@@ -1,1 +1,5 @@
+{% load manipulations %}
+
 <h2>Account Info</h2>
+<p>Username: {{ user }}</p>
+<p>Tribe: {{ user.profile.tribe | get_tribe_name}}</p>
