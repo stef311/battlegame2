@@ -12,8 +12,10 @@ def dashboard(request):
 def overview(request):
     user = request.user
     user_tribe = user.profile.tribe
+    user_villages = user.villages.all()
     context = {}
     context["tribe"] = user_tribe
+    context["user_villages"] = user_villages
     return render(request, "battle/overview.html", context=context)
 
 @login_required

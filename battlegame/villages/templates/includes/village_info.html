@@ -1,4 +1,36 @@
 <h2>Villages Info</h2>
-{% for village in user.villages.all %}
-  <p><a href="{% url 'villages:main' village.id %}">{{ village.name }}</a></p>
-{% endfor %}
+<table>
+  <tr>
+    <th>village name</th>
+    <th>population</th>
+    <th>attack power</th>
+    <th>defence power</th>
+    <th>wood</th>
+    <th>iron</th>
+    <th>culture</th>
+    <th>science</th>
+    <th>wood per turn</th>
+    <th>iron per turn</th>
+    <th>culture per turn</th>
+    <th>science per turn</th>
+    <th>silver</th>
+  </tr>
+  {% for village in user_villages %}
+  <tr>
+    <th><a href="{% url 'villages:main' village.id %}">{{ village.name }}</a></th>
+    <th>{{ village.population }}</th>
+    <th>{{ village.attack_power }}</th>
+    <th>{{ village.defence_power }}</th>
+    <th>{{ village.wood }}</th>
+    <th>{{ village.iron }}</th>
+    <th>{{ village.culture }}</th>
+    <th>{{ village.science }}</th>
+    <th>{{ village.wood_per_turn }}</th>
+    <th>{{ village.iron_per_turn }}</th>
+    <th>{{ village.culture_per_turn }}</th>
+    <th>{{ village.science_per_turn }}</th>
+    <th>{{ village.silver }}</th>
+  </tr>
+  {% endfor %}
+</table>
+<p><a href="{% url 'villages:create' %}">Create a new village</a></p>

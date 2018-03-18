@@ -12,3 +12,7 @@ def all(request):
 def main(request, village_id):
     return HttpResponse(village_id)
 
+@login_required
+def create(request):
+    context = {}
+    return render(request, "villages/create.html", context=context)

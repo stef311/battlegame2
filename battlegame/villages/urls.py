@@ -5,5 +5,6 @@ app_name = "villages"
 
 urlpatterns = [
     path("all/", views.all, name="all"),
-    path("main/<int:village_id>", views.main, name="main")
+    path("main/<int:village_id>", views.main, name="main"),
+    path("create/", views.create, name="create"),
 ]
