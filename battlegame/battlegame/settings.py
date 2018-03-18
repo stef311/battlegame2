@@ -131,6 +131,10 @@ LOGIN_URL = "/account/login/"
 
 REGISTRATION_ENABLED = True
 
+# Grant these field in a newly created village and one empty field
+WOOD_FIELDS_PER_VILLAGE = 2
+IRON_FIELDS_PER_VILLAGE = 2
+
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 STATICFILES_DIRS = [                # For static files not particular to any app.

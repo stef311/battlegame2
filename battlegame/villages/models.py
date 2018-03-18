@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.conf import settings
 from .appconfig import FIELD_TYPES
 # Create your models here.
@@ -20,6 +21,7 @@ class Village(models.Model):
     iron_per_turn = models.IntegerField(default=0)
     silver = models.IntegerField(default=0)
     description = models.CharField(max_length=2000)
+    date_created = models.DateTimeField(default=timezone.now, blank=True, null=True)
 
 class VillageUnits(models.Model):
     village = models.OneToOneField("Village", on_delete=models.CASCADE)
@@ -29,15 +31,16 @@ class VillageUnits(models.Model):
 
 class VillageBuildings(models.Model):
     village = models.OneToOneField("Village", on_delete=models.CASCADE)
-    army = models.IntegerField(default=0)
-    market = models.IntegerField(default=0)
-    academy = models.IntegerField(default=0)
-    museum = models.IntegerField(default=0)
+    army = models.IntegerField(default=1)
+    market = models.IntegerField(default=1)
+    academy = models.IntegerField(default=1)
+    museum = models.IntegerField(default=1)
 
 class VillageItems(models.Model):
+    village = models.OneToOneField("Village", on_delete=models.CASCADE)
     flag = models.IntegerField(default=0)
 
 class VillageField(models.Model):
     village = models.ForeignKey(Village, related_name="fields", on_delete=models.CASCADE)
     field_type = models.IntegerField(choices=FIELD_TYPES, default=1)
-    level = models.IntegerField(default=0)
+    level = models.IntegerField(default=1)

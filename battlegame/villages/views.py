@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 from .forms import CreateVillageForm
-from .models import Village, VillageBuildings, VillageItems, VillageUnits
+from .models import Village, VillageBuildings, VillageItems, VillageUnits, VillageField
+from battle.utils import calculate_attack_power
 
 # Create your views here.
 
@@ -29,6 +31,39 @@ def create(request):
             new_village = Village.objects.create(user = request.user, name=cd["name"], description=cd["description"])
             new_village.save()
             # initial troops to give to village
+            if cd["type"] == 1: # add variables like these in settings
+                offensive_units = 4
+                defensive_units = 2
+                neutral_units = 1
+            elif cd["type"] == 2:
+                offensive_units = 2
+                defensive_units = 4
+                neutral_units = 1
+            else:
+                offensive_units = 2
+                defensive_units = 2
+                neutral_units = 3
+
+            new_village_units = VillageUnits.objects.create(village = new_village, warrior1 = offensive_units,
+                                                    warrior2=defensive_units, warrior3=neutral_units)
+
+            new_village.attack_power += calculate_attack_power(offensive_units, defensive_units, neutral_units)
+            new_village.save()
+            
+            new_village_items = VillageItems.objects.create(village = new_village, flag = 1)
+
+            new_village_buildings = VillageBuildings.objects.create(village = new_village)
+
+            for i in range(settings.WOOD_FIELDS_PER_VILLAGE):
+                VillageField.objects.create(village=new_village, field_type=1)
+
+            for i in range(settings.IRON_FIELDS_PER_VILLAGE):
+                VillageField.objects.create(village=new_village, field_type=2)
+
+            # Create an additional empty village field
+
+            VillageField.objects.create(village=new_village, field_type=0) # 0 means neither wood nor iron
+
             return redirect("battle:overview")
         else:
             return HttpResponse("form not valid. please try with another name")

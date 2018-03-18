@@ -11,8 +11,8 @@ class GameServer(models.Model):
     password = models.CharField(max_length=20)  
     description = models.TextField(max_length=20)
     players_allowed = models.IntegerField(default=0)
-    players = models.ManyToManyField(settings.AUTH_USER_MODEL)
-
+    players = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="gameservers")
+    players_finished_turn = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="gameservers_finished_turn") # then(on change) check to see if same as players length to end turns
 
 class OneTimeTask(models.Model):
     server = models.ForeignKey(GameServer, on_delete=models.CASCADE)
