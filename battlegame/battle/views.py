@@ -10,14 +10,18 @@ def dashboard(request):
 
 @login_required
 def overview(request):
-    server = request.session["gameserver"]
-    user = request.user
-    user_tribe = user.profile.tribe
-    user_villages = user.villages.all()
-    context = {}
-    context["tribe"] = user_tribe
-    context["user_villages"] = user_villages
-    return render(request, "battle/overview.html", context=context)
+
+    if request.session.get("gameserver") == None:
+        return HttpResponse("login first")
+    else:
+        gameserver = request.session["gameserver"]
+        user = request.user
+        user_tribe = user.profile.tribe
+        user_villages = user.villages.all()
+        context = {}
+        context["tribe"] = user_tribe
+        context["user_villages"] = user_villages
+        return render(request, "battle/overview.html", context=context)
 
 @login_required
 def army(request):

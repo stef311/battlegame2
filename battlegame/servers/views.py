@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
+
 from .forms import CreateGameServerForm, JoinGameServerForm
 from .models import GameServer
 
@@ -43,6 +44,7 @@ def server_create(request):
         else:
             return HttpResponse("not valid")
 
+@login_required
 def server_detail(request, server_id):
     server = GameServer.objects.get(id=server_id)
     if request.method == "GET":
@@ -57,6 +59,7 @@ def server_detail(request, server_id):
         if join_gameserver_form.is_valid():
             cd = join_gameserver_form.cleaned_data
             if server.password == cd["password"]:
+                print(request.user)
                 server.players.add(request.user)
                 server.save()
                 return HttpResponse("password is correct")

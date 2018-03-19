@@ -61,6 +61,8 @@ def user_login(request):
                     if user in GameServer.objects.get(id=gameserver).players.all():
                         request.session["gameserver"] = gameserver # TODO: erase it in logout
                         login(request, user)
+
+                        #TODO: implement 'next' feature. get next from url and redirect there
                         return redirect("battle:overview")
                     else:
                         return HttpResponse("Not registered in this server. Please register first from the server list")
