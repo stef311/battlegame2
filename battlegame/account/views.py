@@ -41,12 +41,16 @@ def register(request):
             return render(request, "account/registration_disabled.html", context=context)
 
 def user_login(request):
+    context = {}
     if request.method == "POST":
         user_form = UserLoginForm(request.POST)
         if user_form.is_valid():
             cd = user_form.cleaned_data
             user = authenticate(username=cd["username"],
                                 password=cd["password"])
+
+            gameserver = cd["gameserver"]
+            context.update({"gameserver": gameserver})
             if user is not None:
                 if user.is_active:
                     login(request, user)
@@ -59,7 +63,7 @@ def user_login(request):
             return HttpResponse("Not valid form")
     else:
         user_form = UserLoginForm()
-        context = {"user_form": user_form}
+        context.update({"user_form": user_form})
         return render(request, "account/login.html", context=context)
 
 @login_required

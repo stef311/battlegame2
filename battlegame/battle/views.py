@@ -1,15 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-
+from servers.models import GameServer
 # Create your views here.
 
 @login_required
-def dashboard(request):
+def dashboard(request, server_id):
     return HttpResponse("dashboard here")
 
 @login_required
-def overview(request):
+def overview(request,server_id):
+    server = GameServer.objects.get(id=server_id)
+    print(server_id)
+    print(server)
     user = request.user
     user_tribe = user.profile.tribe
     user_villages = user.villages.all()

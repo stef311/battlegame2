@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% block title %}Server List{% endblock %}
 {% block content %}
+  <h2>Server List</h2>
   <table>
     <tr>
       <th>Name</th>
       <th>Description</th>
       <th>Players Allowed</th>
       <th>Players Registered</th>
+      <th>Go to Battle</th>
     </tr>
   {% for gameserver in gameservers %}
 
@@ -14,9 +16,16 @@
       <td>{{ gameserver.name }}</td>
       <td>{{ gameserver.description }}</td>
       <td>{{ gameserver.players_allowed }}</td>
-      <td>TEST</td>
+      <td>{{ gameserver.players }}</td>
+      <td><a href="{% url "servers: %}"</td>
       <td><a href="{% url "servers:server_detail" gameserver.id %}">details</a></td>
+      {% if gameserver in gameservers_joined %}
+      {% else %}
+        <td></td>
+      {% endif %}
     </tr>
   {% endfor %}
   </table>
+  <p><a href="{% url 'servers:server_create' %}">Create server</a></p>
+
 {% endblock %}

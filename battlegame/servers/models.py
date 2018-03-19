@@ -5,6 +5,17 @@ from battle.models import Unit
 
 # Create your models here.
 
+class GameServerManager(models.Manager):
+    def ids_and_names(self):
+        gameservers = GameServer.objects.all()
+        pairs = []
+        for g in gameservers:
+            pair = (g.id, g.name)
+        pairs.append(pair)
+
+        return pairs
+
+
 class GameServer(models.Model):
     name = models.CharField(max_length=20)
     turn = models.IntegerField(default=0)
@@ -13,6 +24,11 @@ class GameServer(models.Model):
     players_allowed = models.IntegerField(default=0)
     players = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="gameservers")
     players_finished_turn = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="gameservers_finished_turn") # then(on change) check to see if same as players length to end turns
+
+    objects = GameServerManager()
+
+    def __str__(self):
+        return self.name
 
 class OneTimeTask(models.Model):
     server = models.ForeignKey(GameServer, on_delete=models.CASCADE)

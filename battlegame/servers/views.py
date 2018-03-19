@@ -11,6 +11,7 @@ def server_list(request):
     gameservers = GameServer.objects.all()
     context = {}
     context.update({"gameservers": gameservers})
+    context.update({"gameservers_joined": request.user.gameservers})
     return render(request, "servers/list.html", context=context)
 
 @staff_member_required

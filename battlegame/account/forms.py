@@ -1,11 +1,13 @@
 from django import forms
 from django.contrib.auth.models import User
+from servers.models import GameServer
 from .models import Profile
 from .appconfig import CLASS_CHOICES
 
 class UserLoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
+    gameserver = forms.ChoiceField(choices=GameServer.objects.ids_and_names())
 
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(label="Password", widget = forms.PasswordInput)
