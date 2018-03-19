@@ -11,8 +11,7 @@ class GameServerManager(models.Manager):
         pairs = []
         for g in gameservers:
             pair = (g.id, g.name)
-        pairs.append(pair)
-
+            pairs.append(pair)
         return pairs
 
 

@@ -11,7 +11,8 @@ def server_list(request):
     gameservers = GameServer.objects.all()
     context = {}
     context.update({"gameservers": gameservers})
-    context.update({"gameservers_joined": request.user.gameservers})
+    if request.user.is_authenticated:
+        context.update({"gameservers_joined": request.user.gameservers})
     return render(request, "servers/list.html", context=context)
 
 @staff_member_required
@@ -42,7 +43,6 @@ def server_create(request):
         else:
             return HttpResponse("not valid")
 
-@login_required
 def server_detail(request, server_id):
     server = GameServer.objects.get(id=server_id)
     if request.method == "GET":
@@ -58,6 +58,7 @@ def server_detail(request, server_id):
             cd = join_gameserver_form.cleaned_data
             if server.password == cd["password"]:
                 server.players.add(request.user)
+                server.save()
                 return HttpResponse("password is correct")
             else:
                 return HttpResponse("password not correct")

@@ -5,14 +5,12 @@ from servers.models import GameServer
 # Create your views here.
 
 @login_required
-def dashboard(request, server_id):
+def dashboard(request):
     return HttpResponse("dashboard here")
 
 @login_required
-def overview(request,server_id):
-    server = GameServer.objects.get(id=server_id)
-    print(server_id)
-    print(server)
+def overview(request):
+    server = request.session["gameserver"]
     user = request.user
     user_tribe = user.profile.tribe
     user_villages = user.villages.all()

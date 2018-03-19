@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserRegistrationForm, UserLoginForm, ProfileEditForm, UserEditForm
 from .models import Profile
 from villages.models import Village # why is it red on pycharm
+from servers.models import GameServer
 
 
 # Create your views here.
@@ -15,15 +16,19 @@ def register(request):
     if request.method == "POST":
         user_form = UserRegistrationForm(request.POST)
         if user_form.is_valid():
+            cd = user_form.cleaned_data
+
             new_user = user_form.save(commit=False)
-            new_user.set_password(user_form.cleaned_data["password"])
+            new_user.set_password(cd["password"])
             new_user.save()
             profile = Profile.objects.create(user=new_user,
-                                             tribe=user_form.cleaned_data["tribe"],
-                                             description=user_form.cleaned_data["description"])
+                                             tribe=cd["tribe"],
+                                             description=cd["description"])
             profile.save()
-            capital = Village.objects.create(user=new_user, name=user_form.cleaned_data["capital_name"])
+            capital = Village.objects.create(user=new_user, name=cd["capital_name"])
             capital.save()
+
+            GameServer.objects.get(id = cd["gameserver"]).players.add(new_user)
             messages.add_message(request, messages.INFO, "You registered successfully and can now login")
 
             return redirect("account:user_login")
@@ -53,8 +58,12 @@ def user_login(request):
             context.update({"gameserver": gameserver})
             if user is not None:
                 if user.is_active:
-                    login(request, user)
-                    return redirect("battle:overview")
+                    if user in GameServer.objects.get(id=gameserver).players.all():
+                        request.session["gameserver"] = gameserver # TODO: erase it in logout
+                        login(request, user)
+                        return redirect("battle:overview")
+                    else:
+                        return HttpResponse("Not registered in this server. Please register first from the server list")
                 else:
                     return HttpResponse("user is not active")
             else:

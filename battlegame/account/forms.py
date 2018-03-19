@@ -10,6 +10,7 @@ class UserLoginForm(forms.Form):
     gameserver = forms.ChoiceField(choices=GameServer.objects.ids_and_names())
 
 class UserRegistrationForm(forms.ModelForm):
+    gameserver = forms.ChoiceField(choices=GameServer.objects.ids_and_names())
     password = forms.CharField(label="Password", widget = forms.PasswordInput)
     password2 = forms.CharField(label="Repeat Password", widget = forms.PasswordInput)
     tribe = forms.ChoiceField(choices=CLASS_CHOICES)

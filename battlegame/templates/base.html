@@ -35,7 +35,7 @@
 </head>
 <body>
     <p id="tm"></p>
-    <p id="server"></p>
+    <p id="server">gameserver: {{ request.session.gameserver }}</p>
     <div id="sidebar">
         <ul>
           {% if user.is_authenticated %}
