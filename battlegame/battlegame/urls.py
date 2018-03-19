@@ -24,6 +24,7 @@ urlpatterns = [
     path('belongings/', include('belongings.urls')),
     path('growth/', include('growth.urls')),
     path('servers/', include('servers.urls')),
-    path('notifications/', include('notifications.urls'))
+    path('notifications/', include('notifications.urls')),
+    path('places/', include('places.urls')),
 
 ]
