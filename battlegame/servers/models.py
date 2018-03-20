@@ -16,7 +16,9 @@ class GameServerManager(models.Manager):
 
 
 class GameServer(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, default="default gameserver name")
+    coordinatesX = models.IntegerField(default=0)
+    coordinatesY = models.IntegerField(default=0)
     turn = models.IntegerField(default=0)
     password = models.CharField(max_length=20)  
     description = models.TextField(max_length=20)

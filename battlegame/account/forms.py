@@ -4,10 +4,13 @@ from servers.models import GameServer
 from .models import Profile
 from .appconfig import CLASS_CHOICES
 
+
+# TODO: WHEN I USE THE CUSTOM MODEL MANAGER IN A FORM, LIKE BELOW I USE get_ids_and_names(), i cannot do makemigrations when i put a new field in the relative model
 class UserLoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
-    gameserver = forms.ChoiceField(choices=GameServer.objects.ids_and_names())
+    gameserver = forms.ChoiceField(choices=GameServer.objects.ids_and_names()) # comment out this and the other below to fix migrations issues. research the reason
+
 
 class UserRegistrationForm(forms.ModelForm):
     gameserver = forms.ChoiceField(choices=GameServer.objects.ids_and_names())

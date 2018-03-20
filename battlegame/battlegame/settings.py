@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'villages',
     'growth',
     'servers',
+    'places',
     'notifications',
     'django.contrib.admin',
     'django.contrib.auth',
