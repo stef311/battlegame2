@@ -8,6 +8,8 @@ class Tile(models.Model): # TODO: write a check to see if tile is going to be pu
     coordinateX = models.IntegerField(null=False, blank=False)
     coordinateY = models.IntegerField(null=False, blank=False)
 
+    class Meta:
+        abstract = True
 
 class Place(Tile):
     is_buildable = models.BooleanField(default=True)
@@ -19,3 +21,10 @@ class Place(Tile):
     culture = models.IntegerField(default=0)
     science = models.IntegerField(default=0)
     silver = models.IntegerField(default=0)
+    silver_per_turn = models.IntegerField(default=0)
+
+    class Meta:
+        abstract = True
+
+
+#TODO: try if i can create an empty class to implement an abstract model without extra fields
